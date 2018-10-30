@@ -20,6 +20,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
 Plug 'mbbill/undotree'
 Plug 'ChaiScript/vim-chaiscript'
+Plug 'donRaphaco/neotex', { 'for': 'tex' }
 
 call plug#end()
 
@@ -344,6 +345,10 @@ nnoremap <leader>sv :vnew \| VimShell zsh<CR>
 nnoremap <leader>st :VimShellTab zsh<CR>
 
 
+" +++++++++ NeoTex ++++++++++++++++++
+let g:neotex_enabled = 1
+let g:tex_flavor = 'latex'
+let g:neotex_latexdiff = 1
 
 
 
