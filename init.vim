@@ -346,9 +346,10 @@ nnoremap <leader>st :VimShellTab zsh<CR>
 
 
 " +++++++++ NeoTex ++++++++++++++++++
-let g:neotex_enabled = 1
+let g:neotex_enabled = 2
 let g:tex_flavor = 'latex'
 let g:neotex_latexdiff = 1
+let g:neotex_delay = 400
 
 
 
