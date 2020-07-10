@@ -8,7 +8,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdcommenter'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
-"Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/vimproc'
 Plug 'Shougo/vimshell'
 Plug 'kien/ctrlp.vim'
@@ -17,9 +16,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'flazz/vim-colorschemes'
 Plug 'dyng/ctrlsf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'mbbill/undotree'
-Plug 'ChaiScript/vim-chaiscript'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'donRaphaco/neotex', { 'for': 'tex' }
 
 call plug#end()
@@ -79,7 +78,7 @@ nore , ;
 " switching buffers
 set hidden
 
-set shell=/usr/bin/zsh
+set shell=/usr/local/bin/fish
 set lazyredraw  " don't redraw when we don't have to
 
 
