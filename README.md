@@ -1,4 +1,6 @@
 Prereqs:
+
+Install [vim-plug](https://github.com/junegunn/vim-plug) first. Make sure you have:
 * neovim (latest)
 * node
 * python3
