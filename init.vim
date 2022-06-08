@@ -1,25 +1,23 @@
-"set runtimepath^=~/.vim runtimepath+=~/.vim/after
-"let &packpath = &runtimepath
-"source ~/.vimrc
-
-
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'scrooloose/nerdcommenter'
-Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdtree'
-Plug 'Shougo/vimproc'
-Plug 'Shougo/vimshell'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'flazz/vim-colorschemes'
-Plug 'dyng/ctrlsf.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'dense-analysis/ale'
+Plug 'scrooloose/nerdcommenter' " for quick commenting hot keys
+Plug 'majutsushi/tagbar'        " tag listing
+Plug 'scrooloose/nerdtree'      " file tree
+Plug 'tpope/vim-fugitive'       " Git integration
+Plug 'vim-airline/vim-airline' " status bar
+Plug 'flazz/vim-colorschemes'   " color schemes
+Plug 'sonph/onehalf', { 'rtp': 'vim' } " colorscheme
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " multiple cursors
+Plug 'dyng/ctrlsf.vim' " search across multiple files (use with multiple cursors)
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'} " fzf integration (CtrlP replacement)
+Plug 'kyazdani42/nvim-web-devicons' " optional for icon support
+Plug 'junegunn/vim-easy-align' " aligning text with ,maq
+Plug 'voldikss/vim-floaterm'
 Plug 'mbbill/undotree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'JuliaEditorSupport/julia-vim'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'donRaphaco/neotex', { 'for': 'tex' }
+Plug 'github/copilot.vim', {'branch': 'release'} 
 
 call plug#end()
 
@@ -30,8 +28,10 @@ let g:airline_theme = "dark"
 
 " show line numbers
 set number
-colorscheme molokai
 
+"colorscheme molokai
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
 
 " better filename completion in vim command line
 set wildmode=list:longest,full
@@ -40,7 +40,7 @@ set wildmode=list:longest,full
 set cursorline
 "set cursorcolun
 
-" Search/replace word under cursor
+" Search/replace word under cursor (,s)
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
 
 " tell me when i'm in insert or visual mode
@@ -78,13 +78,11 @@ nore , ;
 " switching buffers
 set hidden
 
-set shell=/usr/local/bin/fish
+set shell=/opt/homebrew/bin/fish
 set lazyredraw  " don't redraw when we don't have to
-
 
 " aesthetics
 set background=dark
-
 
 " with these, if you include capitals in a search it'll do
 " the right thing, if you just use lowercase,
@@ -188,8 +186,10 @@ nnoremap <leader>sp :set invspell<CR>
 
 " let me edit my vimrc quickly with ,ev
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
+
 " autoreload vimrc when it's edited
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
+
 " quickly reload vimrc
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
@@ -227,121 +227,29 @@ nnoremap <leader>1 :TagbarToggle<CR>
 nnoremap <leader>2 :NERDTreeToggle<CR>
 " !++++++++ NERDTree ++++++++++!
 
-" +++++++ Rainbow Parens ++++++++++
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-" !+++++++ Rainbow Parens ++++++++++!
-
 
 " +++++++ Undotree ++++++++++
 nnoremap <F5> :UndotreeToggle<cr>
 
 
-let g:python_host_prog = "/usr/bin/python2"
-
-" +++++++++ DEOPLETE +++++++++
-
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-"let g:acp_enableAtStartup = 0
-" Use neocomplete.
-"let g:deoplete#enable_at_startup = 1
-" Use smartcase.
-"let g:deoplete#enable_smart_case = 1
-"" Set minimum syntax keyword length.
-"let g:deoplete#sources#syntax#min_keyword_length = 3
-"let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
+let g:python_host_prog = "/opt/homebrew/bin/python3"
 
 
-"" Define dictionary.
-"let g:deoplete#sources#dictionary#dictionaries = {
-    "\ 'default' : '',
-    "\ 'vimshell' : $HOME.'/.vimshell_hist',
-    "\ 'scheme' : $HOME.'/.gosh_completions'
-        "\ }
-
-" Define keyword.
-"if !exists('g:deoplete#keyword_patterns')
-    "let g:deoplete#keyword_patterns = {}
-"endif
-"let g:deoplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-"inoremap <expr><C-g>     deoplete#undo_completion()
-"inoremap <expr><C-l>     deoplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return deoplete#close_popup() . "\<CR>"
-
-"endfunction
-" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  deoplete#close_popup()
-"inoremap <expr><C-e>  deoplete#cancel_popup()
-
-" Enable omni completion.
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-
-" !+++++++++ DEOPLETE +++++++++!
-
-
-" +++++++++ CtrlP ++++++++++++++++++
-
-let g:ctrlp_cmd = "CtrlPTag"
+" !+++++++++ fzf-lua ++++++++++!
+nnoremap <c-P> <cmd>lua require('fzf-lua').files()<CR>
+nnoremap <c-G> <cmd>lua require('fzf-lua').live_grep_native()<CR>
+nnoremap <c-E> <cmd>lua require('fzf-lua').grep_cword()<CR>
 
 " +++++++++ CtrlSF ++++++++++++++++++
-nmap <C-G>7 <Plug>CtrlSFPrompt
-nmap <C-G>8 <Plug>CtrlSFCwordPath
+nmap     <C-S>n <Plug>CtrlSFPrompt
+vmap     <C-S>f <Plug>CtrlSFVwordPath<CR>
+vmap     <C-S>F <Plug>CtrlSFVwordExec<CR>
+nmap     <C-S>f <Plug>CtrlSFCwordPath<CR>
+nmap     <C-S>p <Plug>CtrlSFPwordPath<CR>
+nnoremap <C-S>o :CtrlSFOpen<CR>
+nnoremap <C-S>t :CtrlSFToggle<CR>
+inoremap <C-S>t <Esc>:CtrlSFToggle<CR>
 
-" +++++++++ vim-easy-align ++++++++++++++++++
-" Start interactive EasyAlign in visual mode (e.g. vipma)
-xmap ma <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. maip)
-nmap ma <Plug>(EasyAlign)
-
-" Setup some default ignores
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(iso|bin|o|ko|d|exe|so|dll|class|png|jpg|jpeg)$',
-\}
-
-" Use the nearest .git directory as the cwd
-" This makes a lot of sense if you are working on a project that is in version
-" control. It also supports works with .svn, .hg, .bzr.
-let g:ctrlp_working_path_mode = 'r'
-
-" no file limit
-let g:ctrlp_max_files = 0
-
-" Easy bindings for its various modes
-nnoremap <leader>pb :CtrlPBuffer<cr>
-nnoremap <leader>pm :CtrlPMixed<cr>
-nnoremap <leader>pu :CtrlPMRU<cr>
-nnoremap <leader>pt :CtrlPTag<cr>
-
-" !+++++++++ CtrlP ++++++++++++++++++!
-
-
-
-" +++++++++ VimShell ++++++++++++++++++
-
-nnoremap <leader>sh :new \| VimShell zsh<CR>
-nnoremap <leader>sv :vnew \| VimShell zsh<CR>
-nnoremap <leader>st :VimShellTab zsh<CR>
 
 
 " +++++++++ NeoTex ++++++++++++++++++
@@ -350,5 +258,21 @@ let g:tex_flavor = 'latex'
 let g:neotex_latexdiff = 1
 let g:neotex_delay = 400
 
+" +++++++++ FloatTerm ++++++++++++++++++
+" Configuration example
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
 
 
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ma <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ma <Plug>(EasyAlign)
+
+
+let g:VM_maps = {}
+let g:VM_maps["Add Cursor Down"]   = '<C-j>'
+let g:VM_maps["Add Cursor Up"]     = '<C-k>'
